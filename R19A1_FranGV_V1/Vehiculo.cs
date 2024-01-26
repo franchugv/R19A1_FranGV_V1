@@ -88,12 +88,14 @@ namespace R19A1_FranGV_V1
             {
                 if (value.Length > MARCA_MAX) throw new Exception("supera el rango máximo de caracteres.");
                 if (value.Length > MARCA_MIN) throw new Exception("es inferior a11l rango máximo de caracteres.");
+
+                string.Format
                 _marca = value;
             }
         }
 
         // METODOS
-
+        
         /// <summary>
         /// Genera el año actual
         /// </summary>
@@ -103,6 +105,11 @@ namespace R19A1_FranGV_V1
             int fechaActual = DateTime.Now.Year;
 
             return fechaActual;
+        }
+
+        private char CaracterMax()
+        {
+            char caracter;
         }
 
     }
