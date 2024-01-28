@@ -10,12 +10,25 @@
 
             Vehiculo Transporte;
 
+
+
             // INICIALIZACION
 
             Transporte = new Vehiculo();
 
             // ENTRADA
 
+            Transporte.Marca = Interfaz.SolicitarCadena("su marca");
+
+            Transporte.Modelo = Interfaz.SolicitarCadena("su modelo");
+
+            Transporte.Tipo = Interfaz.SolicitarCadena("tipo de vehículo");
+
+            Transporte.Estado = Interfaz.SolicitarCadena("su estado");
+
+            Transporte.Combustible = Interfaz.SolicitarCadena("su tipo de combustible");
+
+            Transporte.PrecioContado = Interfaz.SolicitarNumero("el precio al Contado");
 
             // PROCESO
 
