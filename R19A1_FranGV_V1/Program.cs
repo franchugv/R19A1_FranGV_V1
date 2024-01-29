@@ -26,6 +26,8 @@
 
             Transporte.Estado = Interfaz.SolicitarCadena("su estado");
 
+            Transporte.FechaMatriculacion = Interfaz.SolicitarNumero("la fecha de matriculación");
+
             Transporte.Combustible = Interfaz.SolicitarCadena("su tipo de combustible");
 
             Transporte.PrecioContado = Interfaz.SolicitarNumero("el precio al Contado");

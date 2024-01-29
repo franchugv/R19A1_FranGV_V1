@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace R19A1_FranGV_V1
@@ -146,6 +147,7 @@ namespace R19A1_FranGV_V1
 
                 if ((!value.All(char.IsLetterOrDigit) && (!value.All(char.IsSeparator)))) throw new Exception("solo pueden usarse letras o dígitos");
                 _modelo = value;
+
             }
         }
 
