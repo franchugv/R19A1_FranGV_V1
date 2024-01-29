@@ -36,6 +36,9 @@
 
             // SALIDA
 
+            Console.WriteLine(Transporte.FechaMatriculacion);
+            Console.WriteLine(Transporte.PrecioFinanciado);
+
         }
     }
 }

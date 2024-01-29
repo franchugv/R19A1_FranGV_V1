@@ -25,9 +25,9 @@ namespace R19A1_FranGV_V1
 
         // FECHA MATRICULACIÓN
         private const int FEHCA_MAX = 10;
-        
 
 
+        private const float descuento = 90;  // El descuento es la diferencia: 90 --> 10% de descuento
 
 
         // MIEMBROS
@@ -59,15 +59,7 @@ namespace R19A1_FranGV_V1
             _precioContado = 0;
         }
 
-        public Vehiculo(string mark)
-        {
-            Marca = mark;
-            _modelo = "Desconocido";
-            _tipo = "Turismo";
-            _combustible = "Diesel";
-            _estado = "Nuevo";
-            _precioContado = 0;
-        }
+     
 
         public Vehiculo(string mark, string model)
         {
@@ -78,7 +70,6 @@ namespace R19A1_FranGV_V1
             _estado = "Nuevo";
             _precioContado = 0;
         }
-
 
 
 
@@ -124,10 +115,15 @@ namespace R19A1_FranGV_V1
 
             set
             {
-                if (value.Length > MARCA_MAX) throw new Exception("supera el rango máximo de caracteres.");
-                if (value.Length > MARCA_MIN) throw new Exception("es inferior a11l rango máximo de caracteres.");
 
-                if (!value.All(char.IsLetter)) throw new Exception("solo pueden usarse letras");
+                try
+                {
+                    ValidarCadena(value, MARCA_MIN, MARCA_MAX);
+                }
+                catch (Exception Error)
+                {
+                    throw new Exception("Marca: " + Error.Message);
+                }
 
                 _marca = value;
             }
@@ -145,7 +141,8 @@ namespace R19A1_FranGV_V1
                 if (value.Length > MARCA_MAX) throw new Exception("supera el rango máximo de caracteres");
                 if (value.Length < MARCA_MIN) throw new Exception("es inferior a11l rango máximo de caracteres.");
 
-                if ((!value.All(char.IsLetterOrDigit) && (!value.All(char.IsSeparator)))) throw new Exception("solo pueden usarse letras o dígitos");
+                if ((!value.All(char.IsLetterOrDigit) && !value.All(char.IsWhiteSpace))) 
+                    throw new Exception("solo pueden usarse letras o dígitos");
                 _modelo = value;
 
             }
@@ -160,6 +157,7 @@ namespace R19A1_FranGV_V1
 
             set
             {
+                value = value.ToLower();
 
                 if (value != "turismo" && value != "furgoneta" && value != "camión" && value != "camion") throw new Exception("solo puede ser elegido el vehiculo correcto");
 
@@ -176,6 +174,9 @@ namespace R19A1_FranGV_V1
 
             set
             {
+
+                value = value.ToLower();
+
                 if (value != "diesel" && value != "gasolina" && value != "hibrido" && value != "electrico") throw new Exception("opción incorrecta");
                 _combustible = value;
             }
@@ -190,6 +191,8 @@ namespace R19A1_FranGV_V1
 
             set 
             {
+                value = value.ToLower();
+
                 if (value != "nuevo" && value != "ocacion" && value != "segunda mano") throw new Exception("opción incorrecta");
                 _estado = value; 
             }    
@@ -229,8 +232,7 @@ namespace R19A1_FranGV_V1
 
                 if (value < FechaActual - FEHCA_MAX) throw new Exception("fecha incorrecta");
 
-                if (value < FechaActual + FEHCA_MAX) throw new Exception("fecha incorrecta");
-
+                // TODO: pene
 
                 _fechaMatriculacion = value;
             }
@@ -264,14 +266,25 @@ namespace R19A1_FranGV_V1
 
             // PROCESO
 
-            PrecioFinanciado = PrecioContado * 0.10f;
+            PrecioFinanciado = PrecioContado * descuento / 100;
 
             // SALIDA - MÉTODO
 
             return PrecioFinanciado;
         }
 
-       
+        private void ValidarCadena(string cadena, int tamMin, int tamMax)
+        {
+            if (String.IsNullOrEmpty(cadena)) throw new Exception("Cadena vacía");
+            if (cadena.Length < tamMin) throw new Exception($"Longitud inferior a {tamMin} caracteres");
+            if (cadena.Length > tamMax) throw new Exception($"Longitud superior a {tamMax} caracteres");
+
+
+        
+            if (!cadena.All(char.IsLetter)) throw new Exception("solo pueden usarse letras");
+
+        }
+
 
     }
 }
