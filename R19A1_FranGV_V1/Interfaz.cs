@@ -33,6 +33,7 @@ namespace R19A1_FranGV_V1
                 Console.Write($"Escriba {text}: ");
                 dato = Console.ReadLine();
 
+
                 try
                 {
                     Comprobaciones.ErrorCadena(dato);
@@ -51,6 +52,8 @@ namespace R19A1_FranGV_V1
 
             return dato;
         }
+
+
 
         public static float SolicitarNumero(string text)
         {

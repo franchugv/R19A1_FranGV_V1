@@ -95,6 +95,10 @@ namespace R19A1_FranGV_V1
 
 
 
+
+
+
+
         /// <summary>
         /// Devuelve el método PreciosFinanciados()
         /// </summary>
@@ -105,6 +109,16 @@ namespace R19A1_FranGV_V1
                 return PreciosFinanciado();
             }
         }
+
+
+
+
+
+
+
+
+
+
 
         public string Marca
         {
@@ -119,6 +133,8 @@ namespace R19A1_FranGV_V1
                 try
                 {
                     ValidarCadena(value, MARCA_MIN, MARCA_MAX);
+
+                    ValidadarCaracteres(value);
                 }
                 catch (Exception Error)
                 {
@@ -138,15 +154,22 @@ namespace R19A1_FranGV_V1
 
             set
             {
-                if (value.Length > MARCA_MAX) throw new Exception("supera el rango máximo de caracteres");
-                if (value.Length < MARCA_MIN) throw new Exception("es inferior a11l rango máximo de caracteres.");
+               
 
-                if ((!value.All(char.IsLetterOrDigit) && !value.All(char.IsWhiteSpace))) 
-                    throw new Exception("solo pueden usarse letras o dígitos");
+               
                 _modelo = value;
+
+
+                ValidarCadena(value, MODELO_MIN, MODELO_MAX);
+
+                ValidadarCaracterEspacio(value);
+
 
             }
         }
+
+      
+
 
         public string Tipo
         {
@@ -157,9 +180,8 @@ namespace R19A1_FranGV_V1
 
             set
             {
-                value = value.ToLower();
-
-                if (value != "turismo" && value != "furgoneta" && value != "camión" && value != "camion") throw new Exception("solo puede ser elegido el vehiculo correcto");
+                
+                ValidarTipo(value);
 
                 _tipo = value;
             }
@@ -174,13 +196,13 @@ namespace R19A1_FranGV_V1
 
             set
             {
+                ValidarCombustible(value);
 
-                value = value.ToLower();
-
-                if (value != "diesel" && value != "gasolina" && value != "hibrido" && value != "electrico") throw new Exception("opción incorrecta");
                 _combustible = value;
             }
         }
+
+      
 
         public string Estado
         {
@@ -191,12 +213,14 @@ namespace R19A1_FranGV_V1
 
             set 
             {
-                value = value.ToLower();
+                ValidarEstado(value);
 
-                if (value != "nuevo" && value != "ocacion" && value != "segunda mano") throw new Exception("opción incorrecta");
                 _estado = value; 
             }    
         }
+
+
+        
 
         public float PrecioContado
         {
@@ -206,11 +230,10 @@ namespace R19A1_FranGV_V1
             }
 
             set 
-            { 
-                if (value > PRECIOCONT_MAX) throw new Exception ("el precio supera el rango maximo establecido");
-                if (value < PRECIOCONT_MIN) throw new Exception("el precio es menor al rango mínimo establecido");
+            {
+                ValidarNumero(value, PRECIOCONT_MIN, PRECIOCONT_MAX);
 
-                _precioContado = value; 
+                 _precioContado = value; 
             }
         }
 
@@ -225,14 +248,8 @@ namespace R19A1_FranGV_V1
             {
 
 
-                //  No podrá establecerse una fecha posterior a la actual ni con una diferencia de 10 años
+                ValidarFechaMatriculacion(value);
 
-
-                if (value > FechaActual) throw new Exception("fecha superior a la actual");
-
-                if (value < FechaActual - FEHCA_MAX) throw new Exception("fecha incorrecta");
-
-                // TODO: pene
 
                 _fechaMatriculacion = value;
             }
@@ -268,10 +285,14 @@ namespace R19A1_FranGV_V1
 
             PrecioFinanciado = PrecioContado * descuento / 100;
 
+            // o por 0'90f
+
             // SALIDA - MÉTODO
 
             return PrecioFinanciado;
         }
+
+        #region Metodos para excepciones
 
         private void ValidarCadena(string cadena, int tamMin, int tamMax)
         {
@@ -285,6 +306,64 @@ namespace R19A1_FranGV_V1
 
         }
 
+        private void ValidarNumero(float num, int tamMin, int tamMax)
+        {
+            if (num > tamMax) throw new Exception("supera el rango maximo establecido");
+            if (num < tamMin) throw new Exception("es menor al rango mínimo establecido");
+        }
 
+        private void ValidadarCaracterEspacio(string valor)
+        {
+            if ((!valor.All(char.IsLetterOrDigit))) throw new Exception("solo pueden usarse letras o dígitos");
+        }
+
+
+        private void ValidadarCaracteres(string valor)
+        {
+            if (!valor.All(char.IsLetter)) throw new Exception("solo pueden usarse letras");
+        }
+
+
+        private void ValidarTipo(string dato)
+        {
+
+            string valor;
+
+            valor = dato.ToLower();
+            if (valor != "turismo" && valor != "furgoneta" && valor != "camión" && valor != "camion") throw new Exception("solo puede ser elegido el vehiculo correcto");
+        }
+
+
+        private void ValidarCombustible(string dato)
+        {
+
+            string cadena = "";
+
+            cadena = dato.ToLower();
+
+            if (cadena != "diesel" && cadena != "gasolina" && cadena != "hibrido" && cadena != "electrico") throw new Exception("opción incorrecta");
+            _combustible = cadena;
+        }
+
+        private void ValidarEstado(string dato)
+        {
+            string cadena = "";
+
+            cadena = dato.ToLower();
+
+            if (cadena != "nuevo" && cadena != "ocacion" && cadena != "segunda mano") throw new Exception("opción incorrecta");
+        }
+
+        private void ValidarFechaMatriculacion(float valor)
+        {
+            //  No podrá establecerse una fecha posterior a la actual ni con una diferencia de 10 años
+
+
+            if (valor > FechaActual) throw new Exception("fecha superior a la actual");
+
+            if (valor < FechaActual - FEHCA_MAX) throw new Exception("fecha incorrecta");
+        }
+
+        #endregion
     }
 }
