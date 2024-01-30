@@ -24,7 +24,7 @@
 
             Transporte.Modelo = Interfaz.SolicitarCadena("su modelo");
 
-            TFUEL = Interfaz.SolicitarCadena("tipo de vehículo");
+            TFUEL = Interfaz.SolicitarEnum("tipo de vehículo");
 
             // Transporte.Estado = Interfaz.SolicitarCadena("su estado");
 

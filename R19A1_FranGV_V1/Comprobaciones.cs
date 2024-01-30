@@ -37,5 +37,27 @@ namespace R19A1_FranGV_V1
             return Num;
         }
 
+        public static byte ErrorByte(string cadena)
+        {
+            // RECURSOS
+
+            byte dato = 0;
+
+            // VALIDACIONES
+
+            if (string.IsNullOrEmpty(cadena)) throw new Exception("Cadena vacía");
+
+            // CONVERSIÓN A BYTE
+
+            dato = Convert.ToByte(cadena);
+
+
+            // SALIDA
+
+            return dato;
+           
+
+        }
+
     }
 }

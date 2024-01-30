@@ -9,6 +9,51 @@ namespace R19A1_FranGV_V1
     public static class Interfaz
     {
 
+        public static byte SolicitarEnum(string text)
+        {
+            // RECURSOS
+
+            byte dato;
+            string aux;
+            bool esValido;
+
+            // INICIALIZACIÓN
+
+            dato = 0;
+            aux = "";
+
+            // ENTRADA
+
+            do
+            {
+                // RESET
+                esValido = true;
+
+                // ENTRADA
+
+                Console.Write($"Escriba {text} : ");
+                aux = Console.ReadLine();
+
+                try
+                {
+                    Comprobaciones.ErrorByte(aux);
+                }
+                catch(Exception Error)
+                {
+                    esValido = false;
+                    Console.WriteLine($"Error: {aux}");
+                }
+
+
+            }while(!esValido);
+
+            // PROCESO
+
+            // SALIDA
+
+            return dato;
+        }
+
         public static string SolicitarCadena(string text)
         {
             // RECURSOS
