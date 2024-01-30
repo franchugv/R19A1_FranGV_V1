@@ -7,6 +7,24 @@ using System.Threading.Tasks;
 
 namespace R19A1_FranGV_V1
 {
+
+    /// <summary>
+    /// Definición de la Enumeración para el tipo de Vehículo.
+    /// </summary>
+
+    public enum TipoVehiculo : byte { Turismo, Furgoneta, Camion };
+    /// <summary>
+    /// Deficición de la Enumeración para el Combustible.
+    /// </summary>
+    public enum TipoCombustible : byte {  Diesel, Gasolina, Hibrido, Electrico };
+
+    /// <summary>
+    /// Definición de la Enumeración para el Estado del Vehículo
+    /// </summary>
+
+    public enum TipoEstados : byte { Nuevo, Ocasion, SegundaMano };
+
+
     public class Vehiculo
     {
         // CONSTANTES
@@ -36,11 +54,11 @@ namespace R19A1_FranGV_V1
 
         private string _modelo;
 
-        private string _tipo;
+        private TipoVehiculo _tipo;
 
-        private string _combustible;
+        private TipoCombustible _combustible;
 
-        private string _estado;
+        private TipoEstados _estado;
 
         private float _precioContado;
 
@@ -53,9 +71,9 @@ namespace R19A1_FranGV_V1
         {
             _marca = "Desconocido";
             _modelo = "Desconocido";
-            _tipo = "Turismo";
-            _combustible = "Diesel";
-            _estado = "Nuevo";
+            _tipo = TipoVehiculo.Turismo;
+            _combustible = TipoCombustible.Diesel; ;
+            _estado = TipoEstados.Nuevo;
             _precioContado = 0;
         }
 
@@ -65,9 +83,9 @@ namespace R19A1_FranGV_V1
         {
             Marca = mark;
             Modelo = model;
-            _tipo = "Turismo";
-            _combustible = "Diesel";
-            _estado = "Nuevo";
+            _tipo = TipoVehiculo.Turismo;
+            _combustible = TipoCombustible.Diesel; ;
+            _estado = TipoEstados.Nuevo;
             _precioContado = 0;
         }
 
@@ -171,7 +189,7 @@ namespace R19A1_FranGV_V1
       
 
 
-        public string Tipo
+        public TipoVehiculo TipoV
         {
             get
             {
@@ -187,7 +205,7 @@ namespace R19A1_FranGV_V1
             }
         }
 
-        public string Combustible
+        public TipoCombustible Combustible
         {
             get
             {
@@ -204,7 +222,7 @@ namespace R19A1_FranGV_V1
 
       
 
-        public string Estado
+        public TipoEstados Estado
         {
             get
             {
@@ -317,41 +335,59 @@ namespace R19A1_FranGV_V1
             if ((!valor.All(char.IsLetterOrDigit))) throw new Exception("solo pueden usarse letras o dígitos");
         }
 
-
         private void ValidadarCaracteres(string valor)
         {
             if (!valor.All(char.IsLetter)) throw new Exception("solo pueden usarse letras");
         }
 
 
-        private void ValidarTipo(string dato)
+
+
+
+
+
+
+
+
+
+        private void ValidarTipo(TipoVehiculo dato)
         {
+            // RECURSOS
 
-            string valor;
+            bool esValido = false;
 
-            valor = dato.ToLower();
-            if (valor != "turismo" && valor != "furgoneta" && valor != "camión" && valor != "camion") throw new Exception("solo puede ser elegido el vehiculo correcto");
+            // VALIDACIÓN
+
+            switch (dato)
+            {
+                case TipoVehiculo.Camion:
+                    esValido = true;
+                    break;
+                case TipoVehiculo.Furgoneta:
+                    esValido = true;
+                    break;
+                case TipoVehiculo.Turismo:
+                    esValido = true;
+                    break;
+            }
+
+            if (!esValido) 
+            {
+                throw new Exception("Tipo de vehículo erroneo");
+            }
+          
         }
 
 
-        private void ValidarCombustible(string dato)
+        private void ValidarCombustible(TipoCombustible dato)
         {
 
-            string cadena = "";
-
-            cadena = dato.ToLower();
-
-            if (cadena != "diesel" && cadena != "gasolina" && cadena != "hibrido" && cadena != "electrico") throw new Exception("opción incorrecta");
-            _combustible = cadena;
+          
         }
 
-        private void ValidarEstado(string dato)
+        private void ValidarEstado(TipoEstados dato)
         {
-            string cadena = "";
-
-            cadena = dato.ToLower();
-
-            if (cadena != "nuevo" && cadena != "ocacion" && cadena != "segunda mano") throw new Exception("opción incorrecta");
+          
         }
 
         private void ValidarFechaMatriculacion(float valor)

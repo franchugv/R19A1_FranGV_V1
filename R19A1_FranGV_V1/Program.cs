@@ -10,7 +10,9 @@
 
             Vehiculo Transporte;
 
-
+            TipoCombustible TFUEL = new TipoCombustible();
+            TipoVehiculo TCAR = new TipoVehiculo();
+            TipoEstados TEP = new TipoEstados();
 
             // INICIALIZACION
 
@@ -22,13 +24,13 @@
 
             Transporte.Modelo = Interfaz.SolicitarCadena("su modelo");
 
-            Transporte.Tipo = Interfaz.SolicitarCadena("tipo de vehículo");
+            TFUEL = Interfaz.SolicitarCadena("tipo de vehículo");
 
-            Transporte.Estado = Interfaz.SolicitarCadena("su estado");
+            // Transporte.Estado = Interfaz.SolicitarCadena("su estado");
 
             Transporte.FechaMatriculacion = Interfaz.SolicitarNumero("la fecha de matriculación");
 
-            Transporte.Combustible = Interfaz.SolicitarCadena("su tipo de combustible");
+            // Transporte.Combustible = Interfaz.SolicitarCadena("su tipo de combustible");
 
             Transporte.PrecioContado = Interfaz.SolicitarNumero("el precio al Contado");
 
